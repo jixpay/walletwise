@@ -9,6 +9,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
+  console.log(process.env.CLIENT_PORT);
+
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   const { products, loading_products } = useSelector(
