@@ -5,6 +5,9 @@
     "scripts": {
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "start:frontend": "cd client && npm run start",
-    "start:backend": "cd server && npm run start"
+    "start:backend": "cd server && npm run start",
+    "build": "concurrently \"npm run build:frontend\" \"npm run build:backend\"",
+    "build:frontend": "cd client && npm run build",
+    "build:backend": "cd server && npm run build"
   }
 }

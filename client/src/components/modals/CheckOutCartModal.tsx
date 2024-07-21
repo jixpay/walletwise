@@ -14,7 +14,9 @@ import CheckoutPage from "../CheckoutPage";
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLIC_KEY is not defined");
 }
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+const stripePromise = loadStripe(
+  "pk_test_51PefEhLy3jWtwmtNoJCuFEpJI5ej00CFAxhIoMQV8GWb5wa09rG8NVYHrdyKdx4RttnCrTP0ID4ivEaZXhQcu3jo00Ve7JLIPW"
+);
 
 interface CheckOutCartModalProps {
   setCheckOut: React.Dispatch<React.SetStateAction<boolean>>;
