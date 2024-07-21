@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function Home() {
   console.log(process.env.CLIENT_PORT);
+  console.log(process.env.APIURL);
 
   const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
