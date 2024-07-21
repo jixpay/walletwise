@@ -22,7 +22,7 @@ const CheckoutPage = ({ amount, setIsPaid, cart_id }: CheckOutPageProps) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch("/api/create-payment-intent", {
+    fetch("../api/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
