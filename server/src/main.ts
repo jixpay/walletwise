@@ -12,7 +12,7 @@ async function bootstrap() {
   }
 
   app.useGlobalPipes(new ValidationPipe());
-  app.enableCors({origin:process.env.ORIGIN});
+  app.enableCors({origin:'http://3.27.235.23:3000'});
   await app.listen(process.env.SERVER_PORT || 4000);
 }
 bootstrap();
