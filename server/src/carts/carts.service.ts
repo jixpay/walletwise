@@ -14,9 +14,10 @@ export class CartsService {
 
     async create_cart(data):Promise<Cart>{
         try {
+            if(await this.prisma.prismaClient.cart.findFirst({where:{name:data.name}})) throw new BadRequestException('CART NAME IS ALREADY USED!')
             return await this.prisma.prismaClient.cart.create({data})
         } catch (error) {
-            throw new BadRequestException('An ERROR occured creating a new cart')
+            throw new BadRequestException(error.message)
         }
     }
 

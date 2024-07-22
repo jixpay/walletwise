@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "@/redux/store";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CustomFileInput from "../CustomFileInput";
 
 interface CreateNewProductModalProps {
   store_id: number;
@@ -22,7 +23,7 @@ export default function CreateNewProductModal({
   products,
   setProducts,
 }: CreateNewProductModalProps) {
-  const [uploadingFile, setUploadingFile] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { loading_create } = useSelector((state: RootState) => state.product);
   const dispatch = useDispatch<AppDispatch>();
   const [name, setName] = useState("");
@@ -43,7 +44,7 @@ export default function CreateNewProductModal({
   return (
     <div className="fixed inset-0 w-full h-screen bg-black bg-opacity-80 flex justify-center items-center z-20 p-[1rem]">
       <div className="bg-white w-full sm:w-3/4 md:w-1/2 lg:w-1/4 p-2 space-y-2 relative">
-        {loading_create && <Loader />}
+        {(loading_create || loading) && <Loader />}
         <div className="bg-gray-400 h-[75px] text-white flex justify-center items-center text-2xl"></div>
         <input
           type="text"
@@ -92,50 +93,12 @@ export default function CreateNewProductModal({
           <option value="kitchen utensils">KITCHEN UTENSILS</option>
           <option value="books">BOOKS</option>
         </select>
-        <div className="overflow-hidden">
-          {uploadingFile ? (
-            <div className="flex justify-center items-center h-[75px]">
-              <h1 className="w-full h-full">Please wait</h1>
-            </div>
-          ) : (
-            <>
-              {image ? (
-                <>
-                  <div className="relative w-full h-[75px]">
-                    <Image
-                      src={image}
-                      alt=""
-                      fill
-                      sizes="(max-width: 600px) 100vw, 50vw"
-                    />
-                  </div>
-                  <button className="underline" onClick={() => setImage("")}>
-                    remove
-                  </button>
-                </>
-              ) : (
-                <input
-                  type="file"
-                  className="focus:outline-none"
-                  onChange={(e: any) => {
-                    setUploadingFile(true);
-                    dispatch(upload_product_image(e.target.files[0])).then(
-                      (res: any) => {
-                        if (res.error) {
-                          dispatch(error(res.error.message));
-                        } else {
-                          setImage(res.payload);
-                          dispatch(success("Image is Ready"));
-                        }
-                        setUploadingFile(false);
-                      }
-                    );
-                  }}
-                />
-              )}
-            </>
-          )}
-        </div>
+        <CustomFileInput
+          title="ADD PRODUCT IMAGE"
+          image={image}
+          setImage={setImage}
+          setLoading={setLoading}
+        />
         <div className="flex gap-2">
           <button
             className="bg-black text-white py-2 w-full"

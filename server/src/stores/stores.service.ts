@@ -14,9 +14,10 @@ export class StoresService {
 
     async create_store(data): Promise<Store>{
         try {
+            if(await this.prisma.prismaClient.store.findFirst({where:{name:data.name}})) throw new BadRequestException('STORE NAME IS ALREADY USED, ')
             return await this.prisma.prismaClient.store.create({data})
         } catch (error) {
-            throw new BadRequestException('An ERROR occured creating the store')
+            throw new BadRequestException(error.message)
         }
     }
 
@@ -43,9 +44,16 @@ export class StoresService {
 
     async delete_store(id: number): Promise<Store>{
         try {
+            const products = await this.prisma.prismaClient.product.findMany({ where: { store_id:id }})
+            const promises = products.map(async (product) => {
+                await this.prisma.prismaClient.cartProduct.deleteMany({where:{product_id:product.id}})
+                await this.prisma.prismaClient.orderProduct.deleteMany({where:{product_id:product.id}})
+            });
+            await Promise.all(promises);
+            await this.prisma.prismaClient.product.deleteMany({where:{store_id:id}})
             return await this.prisma.prismaClient.store.delete({where:{id}})
         } catch (error) {
-            throw new BadRequestException('An ERROR occur deleting the store')
+            throw new BadRequestException(error.message)
         }
     }
 }

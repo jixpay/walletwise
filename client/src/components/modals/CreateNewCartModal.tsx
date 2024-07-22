@@ -29,9 +29,11 @@ export default function CreateNewCartModal({
   };
   return (
     <div className="fixed inset-0 w-full h-screen bg-black bg-opacity-80 flex justify-center items-center z-20 p-[1rem]">
-      <div className="bg-white w-full sm:w-3/4 md:w-1/2 lg:w-1/4 p-2 space-y-2 relative">
+      <div className="bg-white w-full sm:w-3/4 md:w-1/2 lg:w-1/4 p-2 space-y-2 relative drop-shadow-lg">
         {loading_create && <Loader />}
-        <div className="bg-gray-400 h-[75px] text-white flex justify-center items-center text-2xl"></div>
+        <div className="bg-gray-400 h-[75px] text-white flex justify-center items-center text-2xl">
+          <h1>CREATE CART</h1>
+        </div>
         <input
           type="text"
           className="border-b border-black w-full p-1 focus:outline-none"

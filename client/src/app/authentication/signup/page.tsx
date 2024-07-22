@@ -1,4 +1,5 @@
 "use client";
+import CustomFileInput from "@/components/CustomFileInput";
 import { signup, upload_user_image } from "@/redux/reducers/auth_slice";
 import { error, success } from "@/redux/reducers/notification_slice";
 import { AppDispatch } from "@/redux/store";
@@ -17,7 +18,6 @@ export default function Signup() {
   const [image, setImage] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const [showPassword, setShowPassword] = useState(false);
-  const [uploadingFile, setUploadingFile] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const Loader = () => {
@@ -65,48 +65,12 @@ export default function Signup() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="overflow-hidden">
-          {uploadingFile ? (
-            <div className="flex justify-center items-center h-[75px]">
-              <h1 className="w-full h-full">Please wait</h1>
-            </div>
-          ) : (
-            <>
-              {image ? (
-                <div className="relative w-full h-[75px]">
-                  <img
-                    src={image}
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                    }}
-                    alt=""
-                  />
-                </div>
-              ) : (
-                <input
-                  type="file"
-                  className="focus:outline-none"
-                  onChange={(e: any) => {
-                    setUploadingFile(true);
-                    dispatch(upload_user_image(e.target.files[0])).then(
-                      (res: any) => {
-                        if (res.error) {
-                          dispatch(error(res.error.message));
-                        } else {
-                          setImage(res.payload);
-                          dispatch(success("Image is Ready"));
-                        }
-                        setUploadingFile(false);
-                      }
-                    );
-                  }}
-                />
-              )}
-            </>
-          )}
-        </div>
+        <CustomFileInput
+          title="ADD PROFILE IMAGE"
+          image={image}
+          setImage={setImage}
+          setLoading={setLoading}
+        />
 
         <div className="py-[1rem]">
           <button

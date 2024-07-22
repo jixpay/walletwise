@@ -1,6 +1,7 @@
 "use client";
 import { error, success } from "@/redux/reducers/notification_slice";
 import {
+  delete_store,
   Store,
   update_store,
   upload_store_image,
@@ -27,8 +28,9 @@ export default function UpdateStoreModal({
   const [uploadingFile, setUploadingFile] = useState(false);
   const [description, setDescription] = useState(store?.description);
   const { loading_update } = useSelector((state: RootState) => state.store);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-
+  const router = useRouter();
   const Loader = () => {
     return (
       <div className="bg-black opacity-75 w-full h-full absolute inset-0 flex flex-col text-white justify-center items-center">
@@ -41,7 +43,7 @@ export default function UpdateStoreModal({
   return (
     <div className="fixed inset-0 w-full h-screen bg-black bg-opacity-80 flex justify-center items-center z-20 p-[1rem]">
       <div className="bg-white w-full sm:w-3/4 md:w-1/2 lg:w-1/4 p-2 space-y-2 relative">
-        {loading_update && <Loader />}
+        {(loading_update || loading) && <Loader />}
         <div className="bg-gray-400 h-[75px] text-white flex justify-center items-center text-2xl"></div>
         <div className="border-b border-black">
           <input
@@ -133,6 +135,25 @@ export default function UpdateStoreModal({
             CANCEL
           </button>
         </div>
+        <button
+          className="bg-red-400 p-1 w-full text-white"
+          onClick={() => {
+            if (store) {
+              setLoading(true);
+              dispatch(delete_store(store.id)).then((res: any) => {
+                if (res.error) {
+                  dispatch(error(res.error.message));
+                } else {
+                  dispatch(success("DELETED!"));
+                  router.back();
+                }
+                setLoading(false);
+              });
+            }
+          }}
+        >
+          DELETE STORE
+        </button>
       </div>
     </div>
   );

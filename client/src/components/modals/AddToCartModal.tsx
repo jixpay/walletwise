@@ -53,29 +53,38 @@ export default function AddToCartModal({
             setQuantity(parseInt(e.target.value));
           }}
         />
-        <ul className="space-y-1">
-          {carts.map((cart) => {
-            return (
-              <li
-                key={String(cart.id)}
-                className={`${
-                  selectedcart
-                    ? cart.id === selectedcart
-                      ? "bg-gray-300"
+        {carts.length > 0 ? (
+          <ul className="space-y-1">
+            {carts.map((cart) => {
+              return (
+                <li
+                  key={String(cart.id)}
+                  className={`${
+                    selectedcart
+                      ? cart.id === selectedcart
+                        ? "bg-gray-300"
+                        : ""
                       : ""
-                    : ""
-                }`}
-              >
-                <div
-                  className="border p-2 hover:border-black hover:drop-shadow-lg transition-all ease-in-out duration-300 cursor-pointer"
-                  onClick={() => setSelectedCart(cart.id)}
+                  }`}
                 >
-                  {cart.name}
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                  <div
+                    className="border p-2 hover:border-black hover:drop-shadow-lg transition-all ease-in-out duration-300 cursor-pointer"
+                    onClick={() => setSelectedCart(cart.id)}
+                  >
+                    {cart.name}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        ) : (
+          <div className="bg-gray-100 p-[2rem] text-xl">
+            <h1 className="text-center">EMPTY CARTS</h1>
+            <p className="text-[12px] text-center">
+              go to carts page and create new cart!
+            </p>
+          </div>
+        )}
         <div className="flex gap-2">
           <button
             className="bg-black text-white py-2 w-full"

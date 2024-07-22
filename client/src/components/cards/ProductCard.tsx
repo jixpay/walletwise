@@ -54,7 +54,10 @@ export default function ProductCard({ product }: ProductCardProps) {
             </h1>
             <h1 className="text-xl font-bold uppercase">{`$${product?.price}`}</h1>
           </div>
-          <p>{product?.description}</p>
+          <div className="">
+            <h1>{`category: ${product?.category}`}</h1>
+            <h1>{`stocks: ${product?.stocks}`}</h1>
+          </div>
         </div>
       </div>
     );

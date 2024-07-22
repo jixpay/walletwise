@@ -64,9 +64,11 @@ export class ProductsService {
 
     async delete_product(id: number): Promise<Product>{
         try {
+            await this.prisma.prismaClient.cartProduct.deleteMany({where:{product_id:id}})
+            await this.prisma.prismaClient.orderProduct.deleteMany({where:{product_id:id}})
             return await this.prisma.prismaClient.product.delete({where:{id}})
         } catch (error) {
-            throw new BadRequestException('An ERROR occured deleting the product')
+            throw new BadRequestException(error.message)
         }
     }
 }
