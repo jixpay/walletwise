@@ -63,5 +63,6 @@ model OrderProduct {
   product_id Int
   quantity   Int
   store_id   Int
+  total      Float
   status     String //PREPARING CANCELLED SHIPPED
 }

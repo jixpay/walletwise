@@ -73,6 +73,7 @@ CREATE TABLE "OrderProduct" (
     "product_id" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
     "store_id" INTEGER NOT NULL,
+    "total" DOUBLE PRECISION NOT NULL,
     "status" TEXT NOT NULL,
 
     CONSTRAINT "OrderProduct_pkey" PRIMARY KEY ("id")

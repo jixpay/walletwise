@@ -43,6 +43,7 @@ export class OrdersService {
                     product_id: cart_product.product_id,
                     quantity: cart_product.quantity,
                     store_id: product.store_id,
+                    total:product.price * cart_product.quantity,
                     status: 'PREPARING'
                 }
                 await this.orderProductsService.create_orderproduct(newdata)
