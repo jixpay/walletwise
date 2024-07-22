@@ -88,14 +88,14 @@ export default function OrderProductCard({
             />
           )}
         </div>
-        <div className="overflow-hidden w-full md:w-[70%] h-full">
+        <div className="overflow-hidden w-full md:w-[70%] h-full relative">
           <div className="flex gap-2 border-b border-black justify-between">
             <h1 className="text-xl font-bold uppercase truncate">
               {product?.name}
             </h1>
             <h1 className="text-xl font-bold uppercase">{`$${product?.price}`}</h1>
           </div>
-          <div className="flex flex-col justify-center py-5">
+          <div className="flex flex-col justify-center">
             <div className="flex gap-2">
               <h1>STATUS:</h1>
               <h1
@@ -115,10 +115,11 @@ export default function OrderProductCard({
               </h1>
             </div>
             <h1>{`QTY: ${order?.quantity}x`}</h1>
+            <h1>{`TTL: $${order?.total}x`}</h1>
           </div>
           <button
             disabled={disableButton}
-            className={`bg-black text-white p-1 w-full ${
+            className={`bg-black text-white p-1 w-full md:absolute bottom-0 ${
               disableButton ? "hover:cursor-not-allowed bg-opacity-50" : ""
             }`}
             onClick={() => {

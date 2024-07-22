@@ -7,7 +7,8 @@ export type OrderProduct = {
     order_id: number,
     quantity: number,
     store_id: number,
-    status: string
+    status: string,
+    total: number
 }
 
 interface OrderState {

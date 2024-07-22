@@ -38,12 +38,13 @@ export class OrdersService {
             const order = await this.prisma.prismaClient.order.create({ data })
             cart_products.map(async (cart_product) => {
                 const product = await this.prisma.prismaClient.product.findFirst({where:{id: cart_product.product_id}})
+                const total = product.price * cart_product.quantity
                 const newdata = {
                     order_id: order.id,
                     product_id: cart_product.product_id,
                     quantity: cart_product.quantity,
                     store_id: product.store_id,
-                    total:product.price * cart_product.quantity,
+                    total,
                     status: 'PREPARING'
                 }
                 await this.orderProductsService.create_orderproduct(newdata)
@@ -51,8 +52,7 @@ export class OrdersService {
             
             return order
         } catch (error) {
-            console.log(error)
-            throw new BadRequestException('There was an ERROR creating the order')
+            throw new BadRequestException(error.message)
         }
     }
 
