@@ -60,7 +60,8 @@ describe('OrderproductsController', () => {
         product_id: 1,
         store_id: 1,
         status:'',
-        quantity: 1
+        quantity: 1,
+        total:1
       }
     )
     const res = await controller.cancel_order('1')
@@ -75,7 +76,8 @@ describe('OrderproductsController', () => {
         product_id: 1,
         store_id: 1,
         status:'',
-        quantity: 1
+        quantity: 1,
+        total:1
       }
     )
     const res = await controller.ship_order('1')
