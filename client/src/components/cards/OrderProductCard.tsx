@@ -115,7 +115,7 @@ export default function OrderProductCard({
               </h1>
             </div>
             <h1>{`QTY: ${order?.quantity}x`}</h1>
-            <h1>{`TTL: $${order?.total}x`}</h1>
+            <h1>{`TTL: $${order?.total}`}</h1>
           </div>
           <button
             disabled={disableButton}
