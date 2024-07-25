@@ -11,7 +11,7 @@ export class CartproductsController {
     @Post()
     @UseGuards(AuthenticationGuard)
     async create_cartproduct(@Body() data:CreateCartProductDto, @Request() req){
-        return await this.cartproductsService.create_cartproduct(data, req.user_id)
+        return await this.cartproductsService.create_cartproduct(data, req.user)
     }
 
     @Get('/cart/:id')
