@@ -23,7 +23,7 @@ export class CartproductsService {
         return false
     }
 
-    async create_cartproduct(data: any, user_id: number):Promise<CartProduct>{
+    async create_cartproduct(data: any, user: any):Promise<CartProduct>{
         try {
             const cart = await this.prisma.prismaClient.cart.findFirst({where:{id:data.cart_id}})
             if(!cart) throw new BadRequestException('The cart do not exist')
@@ -31,7 +31,7 @@ export class CartproductsService {
             if(!product) throw new BadRequestException('The product do not exist')
             const store = await this.prisma.prismaClient.store.findFirst({where:{id:product.store_id}})
 
-            if(store.user_id === user_id) throw new ForbiddenException('You are not AUTHORIZED to add this product to a cart.')
+            if(store.user_id === user.id) throw new ForbiddenException('You are not AUTHORIZED to add this product to a cart.')
             return this.prisma.prismaClient.cartProduct.create({data})
         } catch (error) {
             throw new BadRequestException(error.message)
