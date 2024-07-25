@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Cart } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service'
 
@@ -31,22 +31,26 @@ export class CartsService {
 
     async fetch_cart(id: number):Promise<Cart>{
         try {
+            if(!await this.cart_exist({id})) throw new NotFoundException('The cart no longer exist!')
             return await this.prisma.prismaClient.cart.findFirst({where:{id}})
         } catch (error) {
-            throw new BadRequestException('There was an ERROR occured fetching your cart')
+            throw new BadRequestException(error.message)
         }
     }
 
     async update_cart(id: number, data): Promise<Cart>{
         try {
+            if(!await this.cart_exist({id})) throw new NotFoundException('The cart no longer exist!')
             return await this.prisma.prismaClient.cart.update({where:{id}, data})
         } catch (error) {
-            throw new BadRequestException('There was an ERROR updating your cart')
+            throw new BadRequestException(error.message)
         }
     }
 
     async delete_cart(id: number): Promise<Cart>{
         try {
+            if(!await this.cart_exist({id})) throw new NotFoundException('The cart no longer exist!')
+            await this.prisma.prismaClient.cartProduct.deleteMany({where:{cart_id:id}})
             return await this.prisma.prismaClient.cart.delete({where:{id}})
         } catch (error) {
             throw new BadRequestException('There was an ERROR deleting the cart')
