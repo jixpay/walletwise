@@ -57,11 +57,11 @@ export default function Signup() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="border-b border-black flex items-center">
+        <div className="border-b border-black flex items-center w-full">
           <input
             type={`${showPassword ? "text" : "password"}`}
             placeholder="password.."
-            className="focus:outline-none p-2"
+            className="focus:outline-none p-2 w-full"
             onChange={(e) => setPassword(e.target.value)}
           />
           <button onClick={() => setShowPassword(!showPassword)}>
