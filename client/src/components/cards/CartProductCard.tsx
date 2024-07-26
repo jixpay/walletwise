@@ -8,7 +8,6 @@ import {
 import { error } from "@/redux/reducers/notification_slice";
 import { fetch_product, Product } from "@/redux/reducers/products_slice";
 import { AppDispatch } from "@/redux/store";
-import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 

@@ -22,7 +22,7 @@ export default function Signup() {
 
   const Loader = () => {
     return (
-      <div className="bg-black opacity-75 w-full h-full absolute inset-0 flex flex-col text-white justify-center items-center">
+      <div className="bg-black opacity-75 w-full h-full absolute inset-0 flex flex-col text-white justify-center items-center z-30">
         <Image src={"/icons/loading.svg"} alt="" width={70} height={70} />
         <h1>Please wait</h1>
       </div>
@@ -57,13 +57,20 @@ export default function Signup() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="border-b border-black">
+        <div className="border-b border-black flex items-center">
           <input
-            type="password"
+            type={`${showPassword ? "text" : "password"}`}
             placeholder="password.."
             className="focus:outline-none p-2"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? (
+              <img src="/icons/eye-open.svg" width={25} height={25} alt="" />
+            ) : (
+              <img src="/icons/eye-close.svg" width={25} height={25} alt="" />
+            )}
+          </button>
         </div>
         <CustomFileInput
           title="ADD PROFILE IMAGE"

@@ -8,7 +8,6 @@ import {
   Product,
 } from "@/redux/reducers/products_slice";
 import { AppDispatch } from "@/redux/store";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -111,11 +110,12 @@ export default function ViewSingleMyProduct() {
               REMOVE
             </button>
           </div>
-          <div className="w-full h-[40px]">
+          <div className="w-full">
             <h1 className="text-2xl uppercase font-bold">{product?.name}</h1>
           </div>
           <h1>{product?.description}</h1>
-          <div className="w-full h-[40px]">{`${product?.stocks} stock(s) left`}</div>
+          <div className="w-full uppercase text-xl">{`${product?.category}`}</div>
+          <div className="w-full">{`${product?.stocks} stock(s) left`}</div>
           <div className="w-full h-[40px]">{`$${product?.price}`}</div>
         </div>
       </div>

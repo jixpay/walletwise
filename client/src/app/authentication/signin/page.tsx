@@ -13,6 +13,7 @@ export default function Signin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const Loader = () => {
     return (
@@ -35,13 +36,20 @@ export default function Signin() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className="border-b border-black">
+        <div className="border-b border-black flex items-center">
           <input
-            type="password"
+            type={`${showPassword ? "text" : "password"}`}
             placeholder="password.."
             className="focus:outline-none p-2"
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? (
+              <img src="/icons/eye-open.svg" width={25} height={25} alt="" />
+            ) : (
+              <img src="/icons/eye-close.svg" width={25} height={25} alt="" />
+            )}
+          </button>
         </div>
 
         <div className="py-[1rem]">

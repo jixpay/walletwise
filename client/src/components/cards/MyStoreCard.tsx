@@ -43,7 +43,7 @@ export default function MyStoreCard({ store }: MyStoreCardProps) {
             />
           )}
         </div>
-        <div className="overflow-hidden w-full md:w-[70%] h-full">
+        <div className="overflow-hidden w-full md:w-[70%] h-[200px] md:h-full">
           <div className="flex gap-2 border-b border-black">
             <h1 className="text-xl font-bold uppercase truncate">
               {store?.name}
